@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import users from "../../assets/data/users";
+import USERS from "../../assets/data/users";
 
 export default function Stories() {
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {users.map((user, index) => {
+        {USERS.map((user, index) => {
           return (
             <View key={index} style={styles.container}>
               <TouchableOpacity activeOpacity={0.7}>
@@ -27,8 +27,8 @@ export default function Stories() {
                 />
               </TouchableOpacity>
               <Text style={styles.username}>
-                {user.username.length > 10
-                  ? user.username.slice(0, 10).toLowerCase() + "..."
+                {user.username.length > 11
+                  ? user.username.slice(0, 11).toLowerCase() + "..."
                   : user.username.toLowerCase()}
               </Text>
             </View>
@@ -42,11 +42,15 @@ export default function Stories() {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    marginBottom: 20,
   },
   statusPic: {
     borderRadius: 50,
     borderWidth: 3,
-    borderColor: "orange",
-    marginHorizontal: 6,
+    borderColor: "#ff8501",
+    marginHorizontal: 7,
+  },
+  username: {
+    alignSelf: "center",
   },
 });

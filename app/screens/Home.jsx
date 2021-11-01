@@ -1,15 +1,22 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Header from "../components/Home/Header";
 import Stories from "../components/Home/Stories";
+import Post from "../components/Home/Post";
+import POSTS from "../assets/data/posts";
 
 export default function Home() {
   return (
     <View style={styles.Main}>
       <StatusBar style="auto" />
       <Header />
-      <Stories />
+      <ScrollView>
+        <Stories />
+        {POSTS.map((post, index) => (
+          <Post post={post} key={index} />
+        ))}
+      </ScrollView>
     </View>
   );
 }

@@ -1,28 +1,28 @@
-const users = [
+const USERS = [
   {
     username: "elon.musk",
-    profilePic: "https://randomuser.me/api/portraits/men/2.jpg",
+    profilePic: "https://i.imgur.com/1bmuky3.jpg",
+  },
+  {
+    username: "psychoSherlock",
+    profilePic: "https://psychosherlock.github.io/assets/images/toonapp.jpg",
   },
   {
     username: "alreadytaken",
     profilePic: "https://randomuser.me/api/portraits/women/8.jpg",
   },
   {
-    username: "HitlerMussolini",
-    profilePic: "https://randomuser.me/api/portraits/women/20.jpg",
+    username: "lesile_chow",
+    profilePic: "https://i.imgur.com/fGb4vTU.jpeg",
   },
   {
-    username: "google_was_my_idea",
-    profilePic: "https://randomuser.me/api/portraits/men/88.jpg",
+    username: "mia_malkova",
+    profilePic: "https://i.imgur.com/zqbYzAt.jpg",
   },
   {
-    username: "HymanShocker",
-    profilePic: "https://randomuser.me/api/portraits/women/80.jpg",
-  },
-  {
-    username: "hanging_with_my_gnomies",
-    profilePic: "https://randomuser.me/api/portraits/men/20.jpg",
+    username: "the_boogyman",
+    profilePic: "https://i.imgur.com/6OB4SxJ.jpg",
   },
 ];
 
-export default users;
+export default USERS;
