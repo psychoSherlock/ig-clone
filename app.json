@@ -4,7 +4,7 @@
     "slug": "instagram",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": ".app/assets/default/icon.png",
+    "icon": "./app/assets/default/icon.png",
     "splash": {
       "image": "./app/assets/default/splash.png",
       "resizeMode": "contain",
@@ -24,7 +24,7 @@
       }
     },
     "web": {
-      "favicon": ".app/assets/default/favicon.png"
+      "favicon": "./app/assets/default/favicon.png"
     }
   }
 }

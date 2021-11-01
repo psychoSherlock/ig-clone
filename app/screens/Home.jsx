@@ -1,10 +1,15 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import Header from "../components/Home/Header";
+import Stories from "../components/Home/Stories";
 
 export default function Home() {
   return (
     <View style={styles.Main}>
-      <Text>Hello World</Text>
+      <StatusBar style="auto" />
+      <Header />
+      <Stories />
     </View>
   );
 }
@@ -12,6 +17,6 @@ export default function Home() {
 const styles = StyleSheet.create({
   Main: {
     flex: 1,
-    backgroundColor: 'gold'
+    backgroundColor: "white",
   },
 });
