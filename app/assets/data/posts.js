@@ -46,6 +46,19 @@ const POSTS = [
       },
     ],
   },
+  {
+    username: USERS[8].username,
+    profilePic: USERS[8].profilePic,
+    postUri: "https://pbs.twimg.com/media/EaFe3kHXgAAzfo8.jpg:large",
+    caption: "Waiting for Mia, we gonna have some fun togethor!",
+    likes: 1119833,
+    comments: [
+      {
+        user: "mia.malkova",
+        comment: "Am there sweety",
+      },
+    ],
+  },
 ];
 
 export default POSTS;

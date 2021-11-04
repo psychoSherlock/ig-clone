@@ -1,8 +1,18 @@
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Divider } from "react-native-elements/dist/divider/Divider";
 import { IconButton } from "react-native-paper";
-import { Ionicons, FontAwesome, AntDesign } from "@expo/vector-icons";
+import { Ionicons, Fontisto } from "@expo/vector-icons";
+import { TapGestureHandler, State } from "react-native-gesture-handler";
+import { useState, useRef } from "react";
+import { Animated } from "react-native";
+
+import { ActivityIndicator } from "react-native-paper";
+import { Image } from "react-native-elements";
+
+const LoadingSpinner = () => (
+  <ActivityIndicator animating color="grey" size="large" />
+);
 
 export default function Post({ post }) {
   return (
@@ -32,8 +42,6 @@ const PostHeader = ({ post }) => {
           <Image
             source={{
               uri: post.profilePic,
-              width: 40,
-              height: 40,
             }}
             style={styles.profilePic}
           />
@@ -53,20 +61,28 @@ const PostHeader = ({ post }) => {
 };
 
 const PostImage = ({ post }) => {
+  const onDoubleTapEvent = (event) => {
+    if (event.nativeEvent.state === State.ACTIVE) {
+      console.log("liked");
+    }
+  };
   return (
-    <View
-      style={{
-        width: "100%",
-        height: 500,
-      }}
-    >
-      <Image
-        source={{
-          uri: post.postUri,
+    <TapGestureHandler numberOfTaps={2} onHandlerStateChange={onDoubleTapEvent}>
+      <View
+        style={{
+          width: "100%",
+          height: 500,
         }}
-        style={styles.postContent}
-      />
-    </View>
+      >
+        <Image
+          source={{
+            uri: post.postUri,
+          }}
+          style={styles.postContent}
+          PlaceholderContent={<LoadingSpinner />}
+        />
+      </View>
+    </TapGestureHandler>
   );
 };
 
@@ -94,30 +110,48 @@ const LikesAndCaption = ({ post }) => {
     </View>
   );
 };
+function get_random(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
 
 const PostComments = ({ post }) => {
+  const randomComment = get_random(post.comments);
   return (
     <View style={{ marginTop: 5 }}>
       <View>
-        {!!post.comments.length && (
-          <Text style={{ color: "grey" }}>
-            View{" "}
-            {post.comments.length > 1
-              ? `all ${post.comments.length} comments`
-              : "1 comment"}
-          </Text>
-        )}
+        <TouchableOpacity>
+          {!!post.comments.length && (
+            <Text style={{ color: "grey" }}>
+              View{" "}
+              {post.comments.length > 1
+                ? `all ${post.comments.length} comments`
+                : "1 comment"}
+            </Text>
+          )}
+        </TouchableOpacity>
       </View>
 
       <View>
-        {post.comments.map((comment, index) => {
-          return (
-            <Text key={index} style={{ flexDirection: "row", marginTop: 5 }}>
-              <Text style={{ fontWeight: "bold" }}>{comment.user}</Text>
-              <Text> {comment.comment}</Text>
+        {!!post.comments.length && (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: 5,
+            }}
+          >
+            <Text style={{ flexDirection: "row" }}>
+              <Text style={{ fontWeight: "bold" }}>{randomComment.user}</Text>
+              <Text> {randomComment.comment}</Text>
             </Text>
-          );
-        })}
+            <IconButton
+              icon="heart-outline"
+              color="black"
+              size={10}
+              style={{ right: 10 }}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -188,6 +222,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#ff8501",
     marginLeft: 5,
+    width: 40,
+    height: 40,
   },
   postContent: {
     height: "100%",
