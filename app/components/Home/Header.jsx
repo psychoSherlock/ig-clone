@@ -6,7 +6,7 @@ export default function Header() {
     <View style={styles.headerContainer}>
       <View style={styles.headerLeft}>
         <Image
-          source={require("../../assets/images/logo-font.png")}
+          source={require("../../assets/images/custom_logo.png")}
           style={styles.logo}
         />
       </View>
@@ -43,8 +43,9 @@ const styles = StyleSheet.create({
   },
   logo: {
     resizeMode: "contain",
-    width: 146,
+    width: 200,
     height: 100,
+    left: 7,
   },
   headerLeft: {
     alignSelf: "flex-start",

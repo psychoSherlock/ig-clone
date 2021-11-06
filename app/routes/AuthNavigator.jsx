@@ -1,12 +1,13 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "../screens/Login";
 import SignUp from "../screens/SignUp";
 import BottomNavbar from "./BottomNavbar";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const Main = createStackNavigator();
-const AuthStack = createStackNavigator();
+const Main = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
 
 function AuthScreen({ navigation }) {
   return (
@@ -21,6 +22,7 @@ function AuthScreen({ navigation }) {
         component={SignUp}
         options={{
           headerShown: false,
+          animation: "slide_from_right",
         }}
       />
     </AuthStack.Navigator>
@@ -28,21 +30,26 @@ function AuthScreen({ navigation }) {
 }
 
 export default function AppRoutes() {
+  const islogged = true;
   return (
     <NavigationContainer>
       <Main.Navigator initialRouteName="FirstScreen">
-        <Main.Screen
-          name="AuthScreen"
-          component={AuthScreen}
-          options={{ headerShown: false }}
-        />
-        <Main.Screen
-          name="LoggedIn"
-          component={BottomNavbar}
-          options={{
-            headerShown: false,
-          }}
-        />
+        {islogged ? (
+          <Main.Screen
+            name="LoggedIn"
+            component={BottomNavbar}
+            options={{
+              headerShown: false,
+              animation: "slide_from_bottom",
+            }}
+          />
+        ) : (
+          <Main.Screen
+            name="AuthScreen"
+            component={AuthScreen}
+            options={{ headerShown: false, animation: "slide_from_bottom" }}
+          />
+        )}
       </Main.Navigator>
     </NavigationContainer>
   );

@@ -9,7 +9,7 @@ export default function LoginPrompt() {
   const navigation = useNavigation();
   return (
     <View style={styles.main}>
-      <GreetingLogo />
+      <GreetingLogo marginTop={100} />
       <View style={{ width: "80%" }}>
         <InstaInput
           placeholder="Username or Email"
@@ -25,42 +25,33 @@ export default function LoginPrompt() {
           autoCorrect={false}
           autofocus={false}
         />
+        <Text style={{ color: "red", fontWeight: "bold", fontSize: 10 }}>
+          Plese DO NOT USE YOUR REAL INSTAGRAM USERNAME/PASSWORD/ACCOUNT.
+        </Text>
+        <Text style={{ fontSize: 13, color: "grey" }}>
+          Even though your data is safe with me as even I cant read your
+          passwords, its always a precuation you should take against phishing
+          attacks. This app is just a demo of my creativity.
+        </Text>
         <View style={{ alignItems: "flex-end", marginVertical: 10 }}>
           <TouchableOpacity activeOpacity={0.4}>
             <Text style={{ color: "#3797EF" }}>Forgot password?</Text>
           </TouchableOpacity>
         </View>
-        <SubmitButton
-          title="Log In"
-          onPress={() => {
-            navigation.navigate("LoggedIn");
-          }}
-        />
+        <SubmitButton title="Log In" />
       </View>
-      <View style={{ marginTop: 40, width: "90%", justifyContent: "center" }}>
-        <Divider orientation="horizontal" color="grey" />
-        <Text
-          style={{
-            position: "absolute",
 
-            backgroundColor: "white",
-            zIndex: 200,
-            color: "grey",
-            width: 40,
-            textAlign: "center",
-            alignSelf: "center",
-          }}
-        >
-          OR
-        </Text>
-      </View>
+      <SignUpDivider />
+
       <View
         style={{ alignItems: "center", marginTop: 40, flexDirection: "row" }}
       >
-        <Text style={{ color: "grey" }}>Don't have an account?</Text>
+        <Text style={{ color: "grey", fontSize: 15 }}>
+          Don't have an account?
+        </Text>
         <TouchableOpacity activeOpacity={0.3}>
           <Text
-            style={{ color: "#3797EF" }}
+            style={{ color: "#3797EF", fontSize: 17, fontWeight: "bold" }}
             onPress={() => {
               navigation.navigate("Signup");
             }}
@@ -74,11 +65,11 @@ export default function LoginPrompt() {
   );
 }
 
-export const GreetingLogo = () => (
+export const GreetingLogo = ({ marginTop }) => (
   <View style={{ alignItems: "center", justifyContent: "center" }}>
     <Image
       source={require("../../assets/default/icon.png")}
-      style={styles.icon}
+      style={[styles.icon, { marginTop: marginTop }]}
     />
     <Image
       source={require("../../assets/images/custom_logo.png")}
@@ -110,6 +101,26 @@ export const InstaInput = ({
   );
 };
 
+export const SignUpDivider = () => (
+  <View style={{ marginTop: 40, width: "90%", justifyContent: "center" }}>
+    <Divider orientation="horizontal" color="grey" />
+    <Text
+      style={{
+        position: "absolute",
+
+        backgroundColor: "white",
+        zIndex: 200,
+        color: "grey",
+        width: 40,
+        textAlign: "center",
+        alignSelf: "center",
+      }}
+    >
+      OR
+    </Text>
+  </View>
+);
+
 export const SubmitButton = ({ title, loading, disabled, onPress }) => (
   <Button
     title={title}
@@ -131,7 +142,6 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     width: 100,
     height: 100,
-    marginTop: 100,
   },
   logo: {
     width: 270,
