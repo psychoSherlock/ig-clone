@@ -3,8 +3,10 @@ import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import { Button } from "react-native-elements";
 import { Divider } from "react-native-elements/dist/divider/Divider";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 export default function LoginPrompt() {
+  const navigation = useNavigation();
   return (
     <View style={styles.main}>
       <GreetingLogo />
@@ -28,7 +30,12 @@ export default function LoginPrompt() {
             <Text style={{ color: "#3797EF" }}>Forgot password?</Text>
           </TouchableOpacity>
         </View>
-        <SubmitButton title="Log In" />
+        <SubmitButton
+          title="Log In"
+          onPress={() => {
+            navigation.navigate("LoggedIn");
+          }}
+        />
       </View>
       <View style={{ marginTop: 40, width: "90%", justifyContent: "center" }}>
         <Divider orientation="horizontal" color="grey" />
@@ -52,7 +59,15 @@ export default function LoginPrompt() {
       >
         <Text style={{ color: "grey" }}>Don't have an account?</Text>
         <TouchableOpacity activeOpacity={0.3}>
-          <Text style={{ color: "#3797EF" }}> Sign Up!</Text>
+          <Text
+            style={{ color: "#3797EF" }}
+            onPress={() => {
+              navigation.navigate("Signup");
+            }}
+          >
+            {" "}
+            Sign Up!
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -95,7 +110,7 @@ export const InstaInput = ({
   );
 };
 
-export const SubmitButton = ({ title, loading, disabled }) => (
+export const SubmitButton = ({ title, loading, disabled, onPress }) => (
   <Button
     title={title}
     buttonStyle={styles.submit}
@@ -103,6 +118,7 @@ export const SubmitButton = ({ title, loading, disabled }) => (
     disabled={disabled}
     disabledStyle={{ backgroundColor: "#3797EF" }}
     disabledTitleStyle={{ color: "white", opacity: 0.3 }}
+    onPress={onPress}
   />
 );
 

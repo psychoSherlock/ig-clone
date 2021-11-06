@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import React from "react";
 import Home from "../screens/Home";
@@ -14,8 +14,9 @@ const Nav = createBottomTabNavigator();
 export default function BottomNavbar() {
   return (
     <Nav.Navigator
-      tabBarOptions={{
-        showLabel: false,
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
       }}
       initialRouteName="Home"
     >
