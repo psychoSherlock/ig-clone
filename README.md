@@ -9,13 +9,13 @@ It's not any better than the orginal app, and most of the funtionality on the re
 
 1. Clone this repo
 
-```git
+```
 git clone https://github.com/psychoSherlock/ig-clone
 ```
 
 2. Install dependencies
 
-```cmd
+```
 cd ig-clone
 npm install # or yarn install if you prefer that
 npm start
