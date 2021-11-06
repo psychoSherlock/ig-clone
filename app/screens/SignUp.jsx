@@ -1,10 +1,12 @@
+import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Browse() {
+export default function SignUp() {
   return (
     <View>
-      <Text>Browse Instagram</Text>
+      <StatusBar style="auto" />
+      <Text>SignUp</Text>
     </View>
   );
 }

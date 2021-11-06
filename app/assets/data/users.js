@@ -3,10 +3,7 @@ const USERS = [
     username: "elon.musk",
     profilePic: "https://i.imgur.com/1bmuky3.jpg",
   },
-  {
-    username: "psychoSherlock",
-    profilePic: "https://psychosherlock.github.io/assets/images/toonapp.jpg",
-  },
+
   {
     username: "alreadytaken",
     profilePic: "https://randomuser.me/api/portraits/women/8.jpg",

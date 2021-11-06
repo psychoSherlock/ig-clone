@@ -3,7 +3,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import React from "react";
 import Home from "../screens/Home";
-import Browse from "../screens/Browse";
+import Discover from "../screens/Discover";
 import Reels from "../screens/Reels";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
@@ -40,8 +40,8 @@ export default function BottomNavbar() {
         }}
       />
       <Nav.Screen
-        name="Browse"
-        component={Browse}
+        name="Discover"
+        component={Discover}
         options={{
           tabBarIcon: ({ focused }) => (
             <Image
@@ -102,8 +102,8 @@ export default function BottomNavbar() {
                 uri: "https://psychosherlock.github.io/assets/images/toonapp.jpg",
               }}
               style={{
-                width: 28,
-                height: 28,
+                width: focused ? 30 : 28,
+                height: focused ? 30 : 28,
                 borderColor: "black",
                 borderWidth: focused ? 2 : 1,
                 borderRadius: 50,

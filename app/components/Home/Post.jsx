@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Divider } from "react-native-elements/dist/divider/Divider";
 import { IconButton } from "react-native-paper";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
 import { TapGestureHandler, State } from "react-native-gesture-handler";
-import { useState, useRef } from "react";
-import { Animated } from "react-native";
-
+import { Image as NativeImage } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import { Image } from "react-native-elements";
-
-const LoadingSpinner = () => (
-  <ActivityIndicator animating color="grey" size="large" />
-);
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withSpring,
+} from "react-native-reanimated";
+import LoadingSpinner from "../Spinner";
 
 export default function Post({ post }) {
   return (
@@ -61,13 +62,27 @@ const PostHeader = ({ post }) => {
 };
 
 const PostImage = ({ post }) => {
-  const onDoubleTapEvent = (event) => {
+  const scale = useSharedValue(0);
+  const rStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: Math.max(scale.value, 0) }],
+  }));
+
+  const onDoubleTap = useCallback(() => {
+    scale.value = withSpring(0.5, undefined, (isFinished) => {
+      if (isFinished) {
+        scale.value = withDelay(300, withSpring(0));
+      }
+    });
+  }, []);
+
+  const onLiked = (event) => {
     if (event.nativeEvent.state === State.ACTIVE) {
+      onDoubleTap();
       console.log("liked");
     }
   };
   return (
-    <TapGestureHandler numberOfTaps={2} onHandlerStateChange={onDoubleTapEvent}>
+    <TapGestureHandler numberOfTaps={2} onHandlerStateChange={onLiked}>
       <View
         style={{
           width: "100%",
@@ -79,8 +94,24 @@ const PostImage = ({ post }) => {
             uri: post.postUri,
           }}
           style={styles.postContent}
-          PlaceholderContent={<LoadingSpinner />}
+          PlaceholderContent={<LoadingSpinner size="large" />}
         />
+
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Animated.Image
+            source={require("../../assets/icons/heart.png")}
+            style={rStyle}
+            resizeMode="center"
+          />
+        </View>
       </View>
     </TapGestureHandler>
   );

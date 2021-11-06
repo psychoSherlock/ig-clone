@@ -1,19 +1,19 @@
+import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Profile() {
+export default function AddPost() {
   return (
-    <View style={styles.container}>
-      <Text>User Profiles</Text>
+    <View style={styles.Main}>
+      <StatusBar style="auto" />
+      <Text>Add Post</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  Main: {
     flex: 1,
     backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
