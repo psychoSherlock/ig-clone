@@ -14,6 +14,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import LoadingSpinner from "../Spinner";
+import { useNavigation } from "@react-navigation/core";
 
 export default function Post({ post }) {
   return (
@@ -189,6 +190,7 @@ const PostComments = ({ post }) => {
 };
 
 const PostFooter = ({ post }) => {
+  const navigation = useNavigation();
   return (
     <View>
       <View
@@ -223,6 +225,7 @@ const PostFooter = ({ post }) => {
                 }}
               />
             )}
+            onPress={() => navigation.navigate("Comments")}
           />
           <IconButton
             size={28}

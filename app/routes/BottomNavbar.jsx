@@ -17,6 +17,7 @@ export default function BottomNavbar() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
       }}
       initialRouteName="Home"
     >

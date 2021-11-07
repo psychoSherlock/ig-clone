@@ -42,6 +42,7 @@ const Userstory = ({ user, currentUser }) => {
           }}
           style={styles.statusPic}
         />
+
         {currentUser && (
           <Ionicons
             name="add-circle-sharp"

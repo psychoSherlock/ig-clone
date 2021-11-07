@@ -30,3 +30,5 @@ npm start
 ## Can I contribute?
 
 Anyone with react skills can 🤗. I highly appreciate your helps, fork this repo and create a new branch with name `feature/FEATURE_NAME` or `bug/BUG_NAME` and start coding 😋.
+
+      <!-- "softwareKeyboardLayoutMode": "pan" -->

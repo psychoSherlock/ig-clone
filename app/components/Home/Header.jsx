@@ -1,7 +1,10 @@
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { IconButton } from "react-native-paper";
 export default function Header() {
+  const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
       <View style={styles.headerLeft}>
@@ -13,19 +16,30 @@ export default function Header() {
 
       <View style={styles.headerRight}>
         <IconButton
-          icon="plus-box-outline"
+          // icon="plus-box-outline"
           color="black"
           size={30}
-          onPress={() => alert("Add New Post")}
+          onPress={() => navigation.navigate("AddPost")}
+          icon={({ size, color }) => (
+            <Ionicons size={size} color={color} name="ios-add-circle-outline" />
+          )}
+          style={{ left: 10 }}
         />
         <View style={styles.unreadBadge}>
           <Text style={styles.unreadText}>11</Text>
         </View>
         <IconButton
-          icon="facebook-messenger"
-          color="black"
-          size={30}
+          size={28}
           onPress={() => alert("Messenger")}
+          icon={({ size }) => (
+            <Image
+              source={require("../../assets/icons/messenger.png")}
+              style={{
+                width: size,
+                height: size,
+              }}
+            />
+          )}
         />
       </View>
     </View>
@@ -62,8 +76,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     zIndex: 100,
     position: "absolute",
-    right: 10,
-    top: 8,
+    right: 5,
+    top: 5,
   },
   unreadText: {
     color: "white",
