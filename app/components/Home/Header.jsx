@@ -1,17 +1,34 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { IconButton } from "react-native-paper";
+import { auth } from "../../config/firebase";
 export default function Header() {
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
       <View style={styles.headerLeft}>
-        <Image
-          source={require("../../assets/images/custom_logo.png")}
-          style={styles.logo}
-        />
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onLongPress={() => {
+            auth.signOut().catch((error) => {
+              Alert.alert("🤦‍♂️", error.message);
+            });
+          }}
+        >
+          <Image
+            source={require("../../assets/images/custom_logo.png")}
+            style={styles.logo}
+          />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.headerRight}>

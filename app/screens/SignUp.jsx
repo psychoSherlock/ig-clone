@@ -12,6 +12,12 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
+import {
+  auth,
+  collection,
+  createUserWithEmailAndPassword,
+} from "../config/firebase";
+import { Alert } from "react-native";
 
 export default function SignUp() {
   const navigation = useNavigation();
@@ -29,6 +35,24 @@ export default function SignUp() {
       .required("😵 Is it hard to understand that a password is required?")
       .min(6, "😅 Passwords must have at least 6 characters"),
   });
+
+  const onSignUp = (username, email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((authUser) => {
+        Alert.alert(" ✅", " ✊ Successfully created an account ");
+        navigation.navigate("Login");
+        collection("users").add({
+          user_uid: authUser.user.uid,
+          username: username,
+          email: authUser.user.email,
+          profile_pic: `https://api.multiavatar.com/${username}.png`,
+        });
+      })
+      .catch((error) => {
+        Alert.alert(" 🤕 Whoops ", error.message);
+      });
+  };
+
   return (
     <View style={styles.main}>
       <StatusBar style="auto" />
@@ -37,7 +61,7 @@ export default function SignUp() {
         initialValues={{ username: "", email: "", password: "" }}
         validationSchema={SignUpScheme}
         onSubmit={(values) => {
-          console.log(values);
+          onSignUp(values.username, values.email, values.password);
         }}
       >
         {({

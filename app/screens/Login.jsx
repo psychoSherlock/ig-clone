@@ -10,27 +10,41 @@ import {
 } from "../components/Auth/LoginPrompt";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import Validator from "email-validator";
+import { signInWithEmailAndPassword, auth } from "../config/firebase.js";
+import { Alert } from "react-native";
 
 export default function Login({ navigation }) {
   const LoginScheme = Yup.object().shape({
-    username: Yup.string().required(
-      "😑 What am I supposed to do without an username?"
-    ),
+    email: Yup.string()
+      .email("🙄 I asked for email!")
+      .required(
+        "Email is required so that I can verify you are a human and not cheating on me 😒"
+      ),
     password: Yup.string()
       .required("😵 Is it hard to understand that a password is required?")
       .min(6, "😅 Passwords must have at least 6 characters"),
   });
+
+  const onLogin = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {})
+      .catch((error) => {
+        Alert.alert(" Woops 🤒 ", error.message);
+      });
+  };
+
   return (
     <View style={styles.main}>
       <StatusBar style="auto" />
       <View style={styles.container}>
         <GreetingLogo marginTop={100} />
         <Formik
-          initialValues={{ username: "", password: "" }}
+          initialValues={{ email: "", password: "" }}
           validationSchema={LoginScheme}
           // validateOnMount
           onSubmit={(values) => {
-            console.log(values);
+            onLogin(values.email, values.password);
           }}
         >
           {({
@@ -44,17 +58,28 @@ export default function Login({ navigation }) {
           }) => (
             <View style={{ width: "80%" }}>
               <InstaInput
-                placeholder="Username"
+                placeholder="Email"
                 type="emailAddress"
-                autofocus
+                keyType="email-address"
                 capital="none"
+                autoCorrect
                 caretHidden={false}
-                onChangeText={handleChange("username")}
-                onBlur={handleBlur("username")}
-                value={values.username}
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                style={{
+                  borderColor:
+                    values.email.length < 1 || Validator.validate(values.email)
+                      ? "grey"
+                      : "red",
+                  borderWidth:
+                    values.email.length < 1 || Validator.validate(values.email)
+                      ? 0.4
+                      : 1,
+                }}
               />
-              {touched.username && errors.username && (
-                <Text style={styles.error}>{errors.username}</Text>
+              {touched.email && errors.email && (
+                <Text style={styles.error}>{errors.email}</Text>
               )}
               <InstaInput
                 placeholder="Password"
@@ -123,7 +148,7 @@ export default function Login({ navigation }) {
             marginTop: 10,
           }}
         >
-          Plese DO NOT USE YOUR REAL INSTAGRAM USERNAME/PASSWORD/ACCOUNT.
+          Plese DO NOT USE YOUR REAL INSTAGRAM PASSWORD/ACCOUNT.
         </Text>
         <Text style={{ fontSize: 13, color: "grey", marginHorizontal: 15 }}>
           Even though your data is safe with me as even I cant read your
