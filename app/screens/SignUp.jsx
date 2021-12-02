@@ -17,6 +17,7 @@ import {
   collection,
   createUserWithEmailAndPassword,
   firestore,
+  updateProfile,
 } from "../config/firebase";
 import { Alert } from "react-native";
 
@@ -40,14 +41,19 @@ export default function SignUp() {
   const onSignUp = (username, email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((authUser) => {
-        Alert.alert(" ✅", " ✊ Successfully created an account ");
-        navigation.navigate("Login");
+        // Alert.alert(" ✅", " ✊ Successfully created an account ");
+        // navigation.navigate("Login");
 
-        collection(firestore, "users").add({
-          user_uid: authUser.user.uid,
-          username: username,
-          email: authUser.user.email,
-          profile_pic: `https://api.multiavatar.com/${username}.png`,
+        // collection(firestore, "users").add({
+        // Add user to database
+        // user_uid: authUser.user.uid,
+        // username: username,
+        // email: authUser.user.email,
+        // profile_pic: `https://api.multiavatar.com/${username}.png`,
+        // });
+        updateProfile(authUser.user, {
+          displayName: username,
+          photoURL: `https://api.multiavatar.com/${username}.png`,
         });
       })
       .catch((error) => {

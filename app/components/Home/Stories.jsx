@@ -9,15 +9,18 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import USERS from "../../assets/data/users";
+import { auth } from "../../config/firebase";
 
 export default function Stories() {
+  const user = auth.currentUser;
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <Userstory
           user={{
-            profilePic:
-              "https://psychosherlock.github.io/assets/images/toonapp.jpg",
+            profilePic: user.photoURL
+              ? user.photoURL
+              : "https://i.imgur.com/FkI5Sbu.jpg",
             username: "psychoSherlock",
           }}
           currentUser

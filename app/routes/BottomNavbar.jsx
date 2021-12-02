@@ -8,10 +8,22 @@ import Reels from "../screens/Reels";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 import { Image } from "react-native";
+import { auth } from "../config/firebase";
 
 const Nav = createBottomTabNavigator();
 
 export default function BottomNavbar() {
+  const user = auth.currentUser;
+
+  if (user !== null) {
+    user.providerData.forEach((profile) => {
+      console.log("Sign-in provider: " + profile.providerId);
+      console.log("  Provider-specific UID: " + profile.uid);
+      console.log("  Name: " + profile.displayName);
+      console.log("  Email: " + profile.email);
+      console.log("  Photo URL: " + profile.photoURL);
+    });
+  }
   return (
     <Nav.Navigator
       screenOptions={{
@@ -101,7 +113,7 @@ export default function BottomNavbar() {
           tabBarIcon: ({ focused }) => (
             <Image
               source={{
-                uri: "https://psychosherlock.github.io/assets/images/toonapp.jpg",
+                uri: user.photoURL,
               }}
               style={{
                 width: focused ? 30 : 28,
