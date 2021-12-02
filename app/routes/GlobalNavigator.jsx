@@ -15,7 +15,7 @@ export const LoggedInNavigator = () => {
   return (
     <LoggedIn.Navigator initialRouteName="HomeNavbar">
       <LoggedIn.Screen
-        name="Home"
+        name="HomeNavbar"
         component={BottomNavbar}
         options={{
           headerShown: false,

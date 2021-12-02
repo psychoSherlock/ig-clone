@@ -16,6 +16,7 @@ import {
   auth,
   collection,
   createUserWithEmailAndPassword,
+  firestore,
 } from "../config/firebase";
 import { Alert } from "react-native";
 
@@ -41,7 +42,8 @@ export default function SignUp() {
       .then((authUser) => {
         Alert.alert(" ✅", " ✊ Successfully created an account ");
         navigation.navigate("Login");
-        collection("users").add({
+
+        collection(firestore, "users").add({
           user_uid: authUser.user.uid,
           username: username,
           email: authUser.user.email,
@@ -131,12 +133,12 @@ export default function SignUp() {
               value={values.password}
               style={{
                 borderColor:
-                  1 > values.password.length || values.password.length > 6
+                  1 > values.password.length || values.password.length > 5
                     ? "grey"
                     : "red",
 
                 borderWidth:
-                  1 > values.password.length || values.password.length > 6
+                  1 > values.password.length || values.password.length > 5
                     ? 0.4
                     : 1,
               }}
