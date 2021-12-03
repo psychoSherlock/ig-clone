@@ -8,60 +8,61 @@ import AddPost from "../screens/AddPost";
 import Comments from "../screens/Comments";
 import { auth } from "../config/firebase";
 
-const SignedOut = createNativeStackNavigator();
-const LoggedIn = createNativeStackNavigator();
+// const SignedOut = createNativeStackNavigator();
+// const LoggedIn = createNativeStackNavigator();
+const MainNav = createNativeStackNavigator();
 
-export const LoggedInNavigator = () => {
-  return (
-    <LoggedIn.Navigator initialRouteName="HomeNavbar">
-      <LoggedIn.Screen
-        name="HomeNavbar"
-        component={BottomNavbar}
-        options={{
-          headerShown: false,
-          animation: "slide_from_bottom",
-        }}
-      />
-      <LoggedIn.Screen
-        name="AddPost"
-        component={AddPost}
-        options={{
-          headerTitle: "Add New Post",
-          animation: "slide_from_right",
-        }}
-      />
+// export const LoggedInNavigator = () => {
+//   return (
+//     <LoggedIn.Navigator initialRouteName="HomeNavbar">
+//       <LoggedIn.Screen
+//         name="HomeNavbar"
+//         component={BottomNavbar}
+//         options={{
+//           headerShown: false,
+//           animation: "slide_from_bottom",
+//         }}
+//       />
+//       <LoggedIn.Screen
+//         name="AddPost"
+//         component={AddPost}
+//         options={{
+//           headerTitle: "Add New Post",
+//           animation: "slide_from_right",
+//         }}
+//       />
 
-      <LoggedIn.Screen
-        name="Comments"
-        component={Comments}
-        options={{
-          animation: "slide_from_bottom",
-        }}
-      />
-    </LoggedIn.Navigator>
-  );
-};
+//       <LoggedIn.Screen
+//         name="Comments"
+//         component={Comments}
+//         options={{
+//           animation: "slide_from_bottom",
+//         }}
+//       />
+//     </LoggedIn.Navigator>
+//   );
+// };
 
-export const SignedOutNavigator = () => {
-  return (
-    <SignedOut.Navigator initialRouteName="Login">
-      <SignedOut.Screen
-        name="Login"
-        component={Login}
-        options={{ headerShown: false }}
-      />
-      <SignedOut.Screen
-        name="Signup"
-        component={SignUp}
-        options={{
-          headerShown: false,
-          animation: "slide_from_right",
-          gestureEnabled: true,
-        }}
-      />
-    </SignedOut.Navigator>
-  );
-};
+// export const SignedOutNavigator = () => {
+//   return (
+//     <SignedOut.Navigator initialRouteName="Login">
+//       <SignedOut.Screen
+//         name="Login"
+//         component={Login}
+//         options={{ headerShown: false }}
+//       />
+//       <SignedOut.Screen
+//         name="Signup"
+//         component={SignUp}
+//         options={{
+//           headerShown: false,
+//           animation: "slide_from_right",
+//           gestureEnabled: true,
+//         }}
+//       />
+//     </SignedOut.Navigator>
+//   );
+// };
 export default function AppRoutes() {
   const [currentUser, setcurrentUser] = useState(null);
 
@@ -72,7 +73,55 @@ export default function AppRoutes() {
 
   return (
     <NavigationContainer>
-      {currentUser ? <LoggedInNavigator /> : <SignedOutNavigator />}
+      {/* {currentUser ? <LoggedInNavigator /> : <SignedOutNavigator />} */}
+
+      <MainNav.Navigator initialRouteName="Login">
+        {!currentUser ? (
+          <MainNav.Group>
+            <MainNav.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }}
+            />
+            <MainNav.Screen
+              name="Signup"
+              component={SignUp}
+              options={{
+                headerShown: false,
+                animation: "slide_from_right",
+                gestureEnabled: true,
+              }}
+            />
+          </MainNav.Group>
+        ) : (
+          <MainNav.Group>
+            <MainNav.Screen
+              name="HomeNavbar"
+              component={BottomNavbar}
+              options={{
+                headerShown: false,
+                animation: "slide_from_bottom",
+              }}
+            />
+            <MainNav.Screen
+              name="AddPost"
+              component={AddPost}
+              options={{
+                headerTitle: "Add New Post",
+                animation: "slide_from_right",
+              }}
+            />
+
+            <MainNav.Screen
+              name="Comments"
+              component={Comments}
+              options={{
+                animation: "slide_from_bottom",
+              }}
+            />
+          </MainNav.Group>
+        )}
+      </MainNav.Navigator>
     </NavigationContainer>
   );
 }
