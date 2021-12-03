@@ -27,12 +27,16 @@ export default function Login({ navigation }) {
   });
 
   const onLogin = (email, password) => {
+    setstatus(true);
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {})
       .catch((error) => {
+        setstatus(false);
         Alert.alert(" Woops 🤒 ", error.message);
       });
   };
+
+  const [status, setstatus] = useState(false);
 
   return (
     <View style={styles.main}>
@@ -115,6 +119,7 @@ export default function Login({ navigation }) {
                 title="Log In"
                 onPress={handleSubmit}
                 disabled={!isValid} // Opposite of valid
+                loading={status}
               />
             </View>
           )}

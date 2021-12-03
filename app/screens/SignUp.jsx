@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
@@ -23,6 +23,7 @@ import {
 import { Alert } from "react-native";
 
 export default function SignUp() {
+  const [status, setstatus] = useState(false);
   const navigation = useNavigation();
   const SignUpScheme = Yup.object().shape({
     username: Yup.string()
@@ -40,6 +41,7 @@ export default function SignUp() {
   });
 
   const onSignUp = (username, email, password) => {
+    setstatus(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((authUser) => {
         updateProfile(authUser.user, {
@@ -55,22 +57,28 @@ export default function SignUp() {
           profile_pic: `https://api.multiavatar.com/${username}.png`,
         }).catch((err) => {
           console.log(err.message);
+          setstatus(false);
         });
 
         auth
           .signOut()
           .then(() => {
-            navigation.navigate("Login");
+            setstatus(false);
             Alert.alert(
               " ✅ Success",
               "Account created succesfully. \n👉 Please login to continue"
             );
+            navigation.navigate("Login");
           })
-          .catch((err) => Alert.alert(" 🤦‍♂️ ", err.message));
+          .catch((err) => {
+            setstatus(false);
+            Alert.alert(" 🤦‍♂️ ", err.message);
+          });
       })
 
       .catch((error) => {
         Alert.alert(" 🤕 Whoops ", error.message);
+        setstatus(false);
       });
   };
 
@@ -169,6 +177,7 @@ export default function SignUp() {
               title="Check it out!"
               onPress={handleSubmit}
               disabled={!isValid}
+              loading={status}
             />
           </View>
         )}

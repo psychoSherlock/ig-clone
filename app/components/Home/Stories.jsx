@@ -10,6 +10,8 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import USERS from "../../assets/data/users";
 import { auth } from "../../config/firebase";
+import { Image as LoadImage } from "react-native-elements/dist/image/Image";
+import LoadingSpinner from "../Spinner";
 
 export default function Stories() {
   const user = auth.currentUser;
@@ -37,12 +39,11 @@ const Userstory = ({ user, currentUser }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity activeOpacity={0.7}>
-        <Image
+        <LoadImage
           source={{
             uri: user.profilePic,
-            width: 70,
-            height: 70,
           }}
+          PlaceholderContent={<LoadingSpinner size="small" />}
           style={styles.statusPic}
         />
 
@@ -74,6 +75,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   statusPic: {
+    width: 70,
+    height: 70,
     borderRadius: 50,
     borderWidth: 3,
     borderColor: "#ff8501",
