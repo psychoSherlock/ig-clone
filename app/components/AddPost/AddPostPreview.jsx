@@ -4,14 +4,9 @@ import { Image } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableRipple } from "react-native-paper";
 
-export default function AddPostPreview() {
+export default function AddPostPreview({ onPress }) {
   return (
-    <TouchableRipple
-      onPress={() => {
-        console.log("Pressed");
-      }}
-      style={styles.placeholder}
-    >
+    <TouchableRipple onPress={onPress} style={styles.placeholder}>
       <View style={styles.placeholder}>
         <Ionicons
           name="camera-outline"
@@ -34,6 +29,14 @@ export default function AddPostPreview() {
   );
 }
 
+export const ImagePreview = ({ sourceUri, onPress }) => {
+  return (
+    <TouchableRipple style={styles.thumbnailHolder} onPress={onPress}>
+      <Image source={{ uri: sourceUri }} style={styles.thumbnail} />
+    </TouchableRipple>
+  );
+};
+
 const styles = StyleSheet.create({
   placeholder: {
     width: 150,
@@ -48,5 +51,16 @@ const styles = StyleSheet.create({
   camera: {
     position: "absolute",
     alignSelf: "center",
+  },
+  thumbnailHolder: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#EFEFEF",
+  },
+  thumbnail: {
+    width: 150,
+    height: 150,
+    resizeMode: "contain",
   },
 });

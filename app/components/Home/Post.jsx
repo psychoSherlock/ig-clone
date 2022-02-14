@@ -4,8 +4,8 @@ import { Divider } from "react-native-elements/dist/divider/Divider";
 import { IconButton } from "react-native-paper";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
 import { TapGestureHandler, State } from "react-native-gesture-handler";
-import { Image as NativeImage } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
+// import { Image as NativeImage } from "react-native";
+// import { ActivityIndicator } from "react-native-paper";
 import { Image } from "react-native-elements";
 import Animated, {
   useAnimatedStyle,
