@@ -27,6 +27,7 @@ export default function AddPost({ navigation }) {
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
+      base64: true,
     });
     // console.log(pickerResult);
     if (pickerResult.cancelled == true) {
